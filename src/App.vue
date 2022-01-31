@@ -1,11 +1,13 @@
 <template>
-  <div class="app">
+  <div id="app" class="app">
     <div class="header"></div>
     <div class="main wrapper">
       <CardUser />
       <CardUser />
       <CardUser />
-      <ModalProfile />
+      <teleport to="#app">
+        <ModalProfile />
+      </teleport>
     </div>
     <div class="footer"></div>
   </div>
