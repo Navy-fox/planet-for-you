@@ -29,6 +29,10 @@
     box-sizing: border-box;
     font-family: Rubik, sans-serif;
   }
+  input {
+    border: none;
+    outline: none;
+  }
 
   .wrapper {
     max-width: 1200px;
