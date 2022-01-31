@@ -1,22 +1,43 @@
-<script setup lang="ts">
-  // This starter template is using Vue 3 <script setup> SFCs
-  // Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
-  import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" />
+  <div class="app">
+    <div class="header"></div>
+    <div class="main wrapper">
+      <CardUser />
+      <CardUser />
+      <CardUser />
+      <ModalProfile />
+    </div>
+    <div class="footer"></div>
+  </div>
 </template>
 
+<script lang="ts">
+  import { defineComponent } from 'vue'
+  import CardUser from '@/components/card-user.vue'
+  import ModalProfile from '@/components/modal-profile.vue'
+
+  export default defineComponent({
+    components: { ModalProfile, CardUser },
+  })
+</script>
+
 <style lang="scss">
-  #app {
-    font-family: Avenir, Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;
-    margin-top: 60px;
-    $t: 123;
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;700&display=swap');
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Rubik, sans-serif;
+  }
+
+  .wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  .main {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-column-gap: 20px;
   }
 </style>
