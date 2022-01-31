@@ -2,12 +2,7 @@
   <div id="app" class="app">
     <div class="header"></div>
     <div class="main wrapper">
-      <CardUser />
-      <CardUser />
-      <CardUser />
-      <teleport to="#app">
-        <ModalProfile />
-      </teleport>
+      <CardUser v-for="(user, key) in users" :key="key" :user="user" />
     </div>
     <div class="footer"></div>
   </div>
@@ -17,9 +12,15 @@
   import { defineComponent } from 'vue'
   import CardUser from '@/components/card-user.vue'
   import ModalProfile from '@/components/modal-profile.vue'
+  import { TEST_USERS } from '@/data/TestUser'
 
   export default defineComponent({
     components: { ModalProfile, CardUser },
+    data() {
+      return {
+        users: TEST_USERS,
+      }
+    },
   })
 </script>
 

@@ -1,22 +1,36 @@
 <template>
-  <div class="card-user">
-    <img
-      src="https://reqres.in/img/faces/7-image.jpg"
-      alt=""
-      class="card-user__img"
-    />
+  <div class="card-user" @click.stop="modal.open = true">
+    <img :src="user.avatar" alt="" class="card-user__img" />
     <div class="card-user__info info">
-      <p class="info__name">Michael</p>
-      <p class="info__email">michael.lawson@reqres.in</p>
+      <p class="info__name">{{ user.first_name }}</p>
+      <p class="info__email">{{ user.email }}</p>
     </div>
   </div>
+
+  <teleport to="#app" v-if="modal.open">
+    <ModalProfile v-model="modal.open" :user="user" />
+  </teleport>
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue'
+  import { defineComponent, PropType } from 'vue'
+  import ModalProfile from '@/components/modal-profile.vue'
+  import { User } from '@/types/User'
 
   export default defineComponent({
     name: 'CardUser',
+    components: { ModalProfile },
+    props: {
+      user: {
+        type: Object as PropType<User>,
+        required: true,
+      },
+    },
+    data: () => ({
+      modal: {
+        open: false,
+      },
+    }),
   })
 </script>
 
@@ -30,6 +44,8 @@
     display: flex;
     gap: 20px;
     padding: 25px 20px;
+
+    cursor: pointer;
 
     &__img {
       width: 70px;
