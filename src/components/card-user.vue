@@ -1,5 +1,5 @@
 <template>
-  <div class="card-user" @click.stop="modal.open = true">
+  <div class="card-user" @click.stop="openModal">
     <img :src="user.avatar" alt="" class="card-user__img" />
     <div class="card-user__info info">
       <p class="info__name">{{ user.first_name }}</p>
@@ -7,8 +7,10 @@
     </div>
   </div>
 
-  <teleport to="#app" v-if="modal.open">
-    <ModalProfile v-model="modal.open" :user="user" />
+  <teleport to="#app">
+    <transition name="modal" appear>
+      <ModalProfile v-model="modal.open" v-if="modal.open" :user="user" />
+    </transition>
   </teleport>
 </template>
 
@@ -26,6 +28,11 @@
         required: true,
       },
     },
+    methods: {
+      openModal() {
+        this.modal.open = true
+      },
+    },
     data: () => ({
       modal: {
         open: false,
@@ -35,6 +42,15 @@
 </script>
 
 <style lang="scss">
+  .modal-enter-active,
+  .modal-leave-active {
+    transition: opacity 0.5s ease;
+  }
+
+  .modal-enter-from,
+  .modal-leave-to {
+    opacity: 0;
+  }
   .card-user {
     width: 100%;
     background: #fff;

@@ -113,7 +113,7 @@
     }),
     methods: {
       closeModal(): void {
-        this.$emit('update:modelValue', false)
+        this.$emit('update:modelValue')
       },
       copyUser(): void {
         this.form = JSON.parse(JSON.stringify(this.user))
