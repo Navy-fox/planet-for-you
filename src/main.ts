@@ -33,6 +33,10 @@ const store = createStore({
       //вызвать мутацию, которая добавит пользователей в state
       context.commit('ADD_USERS', users)
     },
+    async UPDATE_USERS(context) {
+      const users = await loadUsers()
+      context.commit('ADD_USERS', users)
+    },
   },
   mutations: {
     //добавить пользователей в state
