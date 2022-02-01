@@ -4,22 +4,36 @@
     <div class="main wrapper">
       <h1 class="main__title">Hello ReqRes users!</h1>
       <CardUser v-for="(user, key) in users" :key="key" :user="user" />
-      <div class="main__action">
-        <button class="main__update-btn" @click="updateUsers">
+      <div class="main__actions">
+        <button class="main__btn" @click="updateUsers">
           Обновить пользователей
+        </button>
+        <button class="main__btn" @click="modal.open = true">
+          История событий
         </button>
       </div>
     </div>
   </div>
+
+  <teleport to="#app">
+    <ModalLog v-model="modal.open" v-if="modal.open" />
+  </teleport>
 </template>
 
 <script lang="ts">
   import { defineComponent } from 'vue'
   import CardUser from '@/components/card-user.vue'
   import ModalProfile from '@/components/modal-profile.vue'
+  import '@/assets/scss/modals.scss'
+  import ModalLog from '@/components/modal-log.vue'
 
   export default defineComponent({
-    components: { ModalProfile, CardUser },
+    components: { ModalLog, ModalProfile, CardUser },
+    data: () => ({
+      modal: {
+        open: false,
+      },
+    }),
     computed: {
       users() {
         return this.$store.state.users
@@ -32,7 +46,6 @@
     },
     mounted() {
       this.$store.dispatch('LOAD_USERS') // this.$store
-      console.log(this.$store.state)
     },
   })
 </script>
@@ -72,15 +85,16 @@
       justify-self: center;
     }
 
-    &__action {
+    &__actions {
       grid-column: span 3;
       margin-top: 50px;
       display: flex;
+      gap: 20px;
       justify-content: center;
       min-height: 55px;
     }
 
-    &__update-btn {
+    &__btn {
       border: 1px solid #090042;
       background: #fff;
       border-radius: 10px;

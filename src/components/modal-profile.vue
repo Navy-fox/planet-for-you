@@ -1,10 +1,10 @@
 <template>
   <div class="overlay">
-    <div class="modal-profile">
+    <div class="modal-body modal-profile">
       <img
-        src="public/mdi_close-circle-outline.svg"
+        src="@/assets/img/mdi_close-circle-outline.svg"
         alt=""
-        class="modal-profile__close"
+        class="modal-body__close"
         @click="closeModal"
       />
       <div class="modal-profile__user-info user-info">
@@ -146,27 +146,6 @@
 
 <style lang="scss">
   .modal-profile {
-    position: relative;
-
-    margin: 15% auto auto;
-    width: 50%;
-    padding: 20px;
-    border-radius: 10px;
-    background: #fff;
-
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-
-    &__close {
-      position: absolute;
-      width: 48px;
-      height: 48px;
-      right: -50px;
-      top: -50px;
-      cursor: pointer;
-    }
-
     &__action {
       width: 100%;
       display: flex;
@@ -241,15 +220,5 @@
         background: none;
       }
     }
-  }
-
-  .overlay {
-    position: absolute;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(2, 0, 15, 0.5);
-
-    top: 0;
-    left: 0;
   }
 </style>
