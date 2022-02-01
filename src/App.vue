@@ -12,14 +12,16 @@
   import { defineComponent } from 'vue'
   import CardUser from '@/components/card-user.vue'
   import ModalProfile from '@/components/modal-profile.vue'
-  import { TEST_USERS } from '@/data/TestUser'
 
   export default defineComponent({
     components: { ModalProfile, CardUser },
-    data() {
-      return {
-        users: TEST_USERS,
-      }
+    computed: {
+      users() {
+        return this.$store.state.users
+      },
+    },
+    mounted() {
+      this.$store.dispatch('LOAD_USERS') // this.$store
     },
   })
 </script>
@@ -45,6 +47,6 @@
   .main {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-column-gap: 20px;
+    grid-gap: 20px;
   }
 </style>
