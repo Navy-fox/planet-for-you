@@ -16,7 +16,9 @@
   </div>
 
   <teleport to="#app">
-    <ModalLog v-model="modal.open" v-if="modal.open" />
+    <transition name="modal" appear>
+      <ModalLog v-model="modal.open" v-if="modal.open" />
+    </transition>
   </teleport>
 </template>
 
