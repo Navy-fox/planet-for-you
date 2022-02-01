@@ -3,6 +3,7 @@ import { createStore } from 'vuex'
 import App from './App.vue'
 import { Store } from 'vuex'
 import { loadUsers } from '@/api'
+import { User } from '@/types/User'
 
 declare module '@vue/runtime-core' {
   // declare your own store states
@@ -15,6 +16,7 @@ declare module '@vue/runtime-core' {
     $store: Store<any>
   }
 }
+
 const store = createStore({
   state: {
     users: [],
@@ -29,8 +31,23 @@ const store = createStore({
   },
   mutations: {
     //добавить пользователей в state
-    ADD_USERS(state, payload) {
+    ADD_USERS(state, payload: []) {
       state.users = payload
+    },
+    EDIT_USER(state, payload: User) {
+      let userIndex: number = state.users.findIndex(
+        (user: User) => user.id === payload.id
+      )
+      if (state.users[userIndex]) {
+        // @ts-ignore
+        state.users[userIndex] = payload
+      }
+    },
+    DELETE_USER(state, payload: User) {
+      let userIndex: number = state.users.findIndex(
+        (user: User) => user.id === payload.id
+      )
+      state.users.splice(userIndex, 1)
     },
   },
 })

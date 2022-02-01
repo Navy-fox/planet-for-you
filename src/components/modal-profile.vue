@@ -97,9 +97,13 @@
         this.copyUser()
         this.editMode = false
       },
-      onDeleteUser(): void {},
+      onDeleteUser(): void {
+        this.$store.commit('DELETE_USER', this.form)
+        this.closeModal()
+      },
       onEditUser(): void {
         this.editMode = false
+        this.$store.commit('EDIT_USER', this.form)
       },
     },
     props: {
