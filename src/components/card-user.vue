@@ -15,14 +15,14 @@
 <script lang="ts">
   import { defineComponent, PropType } from 'vue'
   import ModalProfile from '@/components/modal-profile.vue'
-  import { User } from '@/types/User'
+  import { IUser } from '@/types/IUser'
 
   export default defineComponent({
     name: 'CardUser',
     components: { ModalProfile },
     props: {
       user: {
-        type: Object as PropType<User>,
+        type: Object as PropType<IUser>,
         required: true,
       },
     },

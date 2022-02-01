@@ -1,11 +1,11 @@
 import axios, { AxiosResponse } from 'axios'
-import { User } from '@/types/User'
+import { IUser } from '@/types/IUser'
 
 const axiosInstance = axios.create({
   baseURL: 'https://reqres.in',
 })
 
-export const loadUsers = async (): Promise<User[]> => {
+export const loadUsers = async (): Promise<IUser[]> => {
   try {
     const response: AxiosResponse = await axiosInstance.get('/api/users', {
       params: { page: 2 },

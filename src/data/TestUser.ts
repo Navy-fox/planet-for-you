@@ -1,6 +1,6 @@
-import { User } from '@/types/User'
+import { IUser } from '@/types/IUser'
 
-export const TEST_USERS: User[] = [
+export const TEST_USERS: IUser[] = [
   {
     id: 8,
     email: 'lindsay.ferguson@reqres.in',

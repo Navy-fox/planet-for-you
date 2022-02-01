@@ -1,5 +1,5 @@
-export interface User {
-  id: number
+export interface IUser {
+  readonly id: number
   email: string
   first_name: string
   last_name: string

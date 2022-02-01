@@ -9,6 +9,8 @@
   },
   "dependencies": {
     "@types/node": "^17.0.13",
+    "@vuelidate/core": "^2.0.0-alpha.34",
+    "@vuelidate/validators": "^2.0.0-alpha.26",
     "sass": "^1.49.0",
     "sass-loader": "^12.4.0",
     "vue": "^3.2.25",

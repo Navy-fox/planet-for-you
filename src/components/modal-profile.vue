@@ -70,11 +70,11 @@
 
 <script lang="ts">
   import { defineComponent, PropType } from 'vue'
-  import { User } from '@/types/User'
+  import { IUser } from '@/types/IUser'
 
   export default defineComponent({
     name: 'ModalProfile',
-    data(): { form: User; editMode: boolean } {
+    data(): { form: IUser; editMode: boolean } {
       return {
         form: {
           id: -1,
@@ -109,7 +109,7 @@
     },
     props: {
       user: {
-        type: Object as PropType<User>,
+        type: Object as PropType<IUser>,
         required: true,
       },
     },
