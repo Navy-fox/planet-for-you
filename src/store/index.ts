@@ -75,7 +75,7 @@ const store = createStore<State>({
       state.users.splice(userIndex, 1)
 
       // @ts-ignore
-      this.commit('ADD_LOG', new UserLog(i.id, LogTypeUser.DELETE))
+      this.commit('ADD_LOG', new UserLog(payload.id, LogTypeUser.DELETE))
     },
 
     ADD_LOG(state, payload: IUserLog) {
