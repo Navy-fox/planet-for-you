@@ -104,6 +104,7 @@
       onEditUser(): void {
         this.editMode = false
         this.$store.commit('EDIT_USER', this.form)
+        this.closeModal()
       },
     },
     props: {

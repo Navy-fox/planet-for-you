@@ -1,5 +1,6 @@
 import { createApp } from 'vue'
 import { createStore } from 'vuex'
+import createPersistedState from 'vuex-persistedstate'
 import App from './App.vue'
 import { Store } from 'vuex'
 import { loadUsers } from '@/api'
@@ -18,11 +19,15 @@ declare module '@vue/runtime-core' {
 }
 
 const store = createStore({
+  plugins: [createPersistedState()],
   state: {
     users: [],
   },
   actions: {
     async LOAD_USERS(context) {
+      if (context.state.users.length) {
+        return
+      }
       //получить пользователей
       const users = await loadUsers()
       //вызвать мутацию, которая добавит пользователей в state
