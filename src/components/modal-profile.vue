@@ -16,6 +16,7 @@
               class="form__input"
               v-model="form.first_name"
               :disabled="!editMode"
+              placeholder="Введите имя"
             />
           </fieldset>
           <fieldset class="form__fieldset">
@@ -24,6 +25,7 @@
               class="form__input"
               v-model="form.last_name"
               :disabled="!editMode"
+              placeholder="Введите фамилию"
             />
           </fieldset>
           <fieldset class="form__fieldset">
@@ -32,6 +34,7 @@
               class="form__input"
               v-model="form.email"
               :disabled="!editMode"
+              placeholder="Введите email"
             />
           </fieldset>
         </form>
@@ -60,7 +63,12 @@
         >
           Отмена
         </button>
-        <button class="modal-profile__btn" @click="onEditUser" v-if="editMode">
+        <button
+          class="modal-profile__btn"
+          @click="onEditUser"
+          v-if="editMode"
+          :disabled="v$.$invalid"
+        >
           Сохранить
         </button>
       </div>
@@ -71,10 +79,18 @@
 <script lang="ts">
   import { defineComponent, PropType } from 'vue'
   import { IUser } from '@/types/IUser'
+  import useValidate from '@vuelidate/core'
+  import { required, email } from '@vuelidate/validators'
+
+  type Data = {
+    form: IUser
+    editMode: boolean
+    v$: any
+  }
 
   export default defineComponent({
     name: 'ModalProfile',
-    data(): { form: IUser; editMode: boolean } {
+    data(): Data {
       return {
         form: {
           id: -1,
@@ -84,8 +100,17 @@
           avatar: '',
         },
         editMode: false,
+        v$: useValidate(),
       }
     },
+
+    validations: () => ({
+      form: {
+        email: { required, email },
+        first_name: { required },
+        last_name: { required },
+      },
+    }),
     methods: {
       closeModal(): void {
         this.$emit('update:modelValue', false)

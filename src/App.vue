@@ -32,6 +32,7 @@
     },
     mounted() {
       this.$store.dispatch('LOAD_USERS') // this.$store
+      console.log(this.$store.state)
     },
   })
 </script>

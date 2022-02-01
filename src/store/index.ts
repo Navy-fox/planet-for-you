@@ -3,10 +3,12 @@ import User from '@/classes/User'
 import createPersistedState from 'vuex-persistedstate'
 import { loadUsers } from '@/api'
 import { IUser } from '@/types/IUser'
+import { IUserLog } from '@/types/IUserLog'
+import { UserLog } from '@/classes/UserLog'
+import { LogTypeUser } from '@/types/LogTypeUser'
 
 declare module '@vue/runtime-core' {
   // declare your own store states
-
   // provide typings for `this.$store`
   interface ComponentCustomProperties {
     $store: Store<any>
@@ -15,12 +17,14 @@ declare module '@vue/runtime-core' {
 
 interface State {
   users: User[]
+  logs: IUserLog[]
 }
 
 const store = createStore<State>({
   plugins: [createPersistedState()],
   state: {
     users: [],
+    logs: [],
   },
   actions: {
     async LOAD_USERS(context) {
@@ -42,9 +46,14 @@ const store = createStore<State>({
     ADD_USERS(state, payload: IUser[]) {
       state.users = payload.filter((i: IUser) => {
         try {
-          return new User(i)
-        } catch (e) {
-          console.error(e)
+          const user = new User(i)
+          // @ts-ignore
+          this.commit('ADD_LOG', new UserLog(i.id, LogTypeUser.CREATE))
+          return user
+        } catch (error) {
+          console.error(error)
+          // @ts-ignore
+          this.commit('ADD_LOG', new UserLog(i.id, LogTypeUser.ERROR, error))
           return false
         }
       })
@@ -54,8 +63,9 @@ const store = createStore<State>({
         (user: IUser) => user.id === payload.id
       )
       if (state.users[userIndex]) {
-        // @ts-ignore
         state.users[userIndex] = payload
+        // @ts-ignore
+        this.commit('ADD_LOG', new UserLog(payload.id, LogTypeUser.UPDATE))
       }
     },
     DELETE_USER(state, payload: IUser) {
@@ -63,6 +73,13 @@ const store = createStore<State>({
         (user: IUser) => user.id === payload.id
       )
       state.users.splice(userIndex, 1)
+
+      // @ts-ignore
+      this.commit('ADD_LOG', new UserLog(i.id, LogTypeUser.DELETE))
+    },
+
+    ADD_LOG(state, payload: IUserLog) {
+      state.logs.push(payload)
     },
   },
 })
